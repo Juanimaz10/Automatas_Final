@@ -1,0 +1,2 @@
+JUA_TI = "Automatas"
+
