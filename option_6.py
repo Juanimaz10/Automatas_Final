@@ -1,3 +1,12 @@
-from constants import *
+from csv_file import CsvFile
 
-print(JUA_TI)
+class Option6:
+
+    @staticmethod
+    def execute():
+        Option6.listTop10ArtistsByViews()
+
+    @staticmethod
+    def listTop10ArtistsByViews():
+        csvFile = CsvFile()
+        print(csvFile.listTop10ArtistsByViews())

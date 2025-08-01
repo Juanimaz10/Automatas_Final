@@ -1,3 +1,12 @@
-from constants import *
+from csv_file import CsvFile
 
-print(JUA_TI)
+class Option4:
+
+    @staticmethod
+    def execute():
+        Option4.AddMusicInNewRowInExcel()
+
+    @staticmethod
+    def AddMusicInNewRowInExcel():
+        csvFile = CsvFile()
+        print(csvFile.addMusicToCsvFile())

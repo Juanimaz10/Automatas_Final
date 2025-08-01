@@ -1,0 +1,4 @@
+Artist,Title,Url_spotify,Track,Album,Album_type,Uri,Duration_ms,Url_youtube
+Artista1,Cancion1,Tarzan,Track1,nuevoSingle,single,spotifyUri,1.5,https://www.youtube.com/watch?v=ID1
+Artista2,Cancion2,https://open.spotify.com/track/ID2,Track2,nuevoCompilation,compilation,track:ID2,5,www.youtube.com/watch?v=ID2
+Artista3,Cancion3,open.spotify.com/track/ID3,Track3,nuevoAlbum,album,spotify:track:ID3,20,UrlYouTube
