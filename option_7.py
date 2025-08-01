@@ -1,0 +1,1 @@
+print("Hello, this is option 7 script.")

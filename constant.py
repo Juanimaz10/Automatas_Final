@@ -1,21 +1,17 @@
 MAIN_MENU = """
 ----------------------------------------------------------------------------------------
-1) Listar las 5 canciones con más likes, vistas y comentarios
 
-2) Listar las 5 canciones con mejor ratio.
-
-3) Buscar una canción.
-
-4) Agregar nueva fila.
-
-5) Listar las 10 canciones con más duración.
-
-6) Listar los 10 artistas con más reproducciones en total.
-
-7) [SALIR]
+1) List the 5 songs with the most likes, views, and comments
+2) List the 5 songs with the best ratio
+3) Search for a song
+4) Add a new row
+5) List the 10 songs with the longest duration
+6) List the 10 artists with the most total plays
+7) Show the csv file
+8) [Exit]
 ----------------------------------------------------------------------------------------"""
 
-USER_INPUT_OPTION_TO_MAIN_MENU = "Ingrese opción: "
+USER_INPUT_OPTION_TO_MAIN_MENU = "Insert the option you want to execute: "
 
 PROGRAM_OFF = "[ [ OFF ] ]"
 
@@ -24,7 +20,7 @@ COLUMN_VIEWS = "Views"
 COLUMN_COMMENTS = "Comments"
 COLUMN_TRACK = "Track"
 
-SEARCH_SONG_BY_NAME = "Ingrese nombre de la cancion: "
+SEARCH_SONG_BY_NAME = "Insert the name of the song: " 
 
 
 REGULARS_VALIDATIONS = {
@@ -39,6 +35,6 @@ REGULARS_VALIDATIONS = {
     'Url_youtube': r'^(https?://)?(www\.)?(youtube\.com?)?/?(watch\?)?(v=)?[A-Za-z0-9_-]+$'
 }
 
-SUCCESS_TO_ADD_ROW_IN_CSV_FILE = "Éxito al añadir"
+SUCCESS_TO_ADD_ROW_IN_CSV_FILE = "Successfully added a new row to the CSV file."
 
-ISLOADMUSICFORFILE = "Quiere agregar canciones manualmente?(1-no, 2-si):"
+ISLOADMUSICFORFILE = " do you want to add songs manually? (1-no, 2-yes): "
