@@ -7,6 +7,7 @@ from option_3 import Option3
 from option_4 import Option4
 from option_5 import Option5
 from option_6 import Option6
+from option_7 import Option7
  
 
 class MainMenuController:
@@ -18,10 +19,10 @@ class MainMenuController:
                                                  4: Option4,
                                                  5: Option5,
                                                  6: Option6,
-                                                 7: ...}
+                                                 7: Option7}
 
 
     def runTheServiceThatTheUserChose(self):
-        if 6 >= self.__mainMenuOptionChosenByTheUser >= 1:
+        if 7 >= self.__mainMenuOptionChosenByTheUser >= 1:
             return self.__serviceChoosedByMainMenuOption[self.__mainMenuOptionChosenByTheUser].execute()
         exit(PROGRAM_OFF)

@@ -1,7 +1,6 @@
 from constant import SEARCH_SONG_BY_NAME
 from csv_file import CsvFile
 
-
 class Option3:
 
     @staticmethod

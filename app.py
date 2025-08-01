@@ -7,7 +7,7 @@ class App:
 
     def start(self):
         mainMenu = MainMenu(...)
-        while mainMenu.option != 7:
+        while mainMenu.option != 8:
             print(MainMenu.show())
             user = User()
             mainMenuController = MainMenuController(user.MainMenuWithOptionSelectedByTheUser)
