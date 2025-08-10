@@ -1,9 +1,6 @@
-from csv_file import show_csv_file
+from csv_file import CsvFile
 
 class Option7:
-
     @staticmethod
     def execute():
-        print(show_csv_file())  
-
-
+        print(CsvFile.show_csv_file())

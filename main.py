@@ -13,7 +13,6 @@ class MainMenu:
     def option(self, optionChoosedByUser) -> None:
         self.__option = optionChoosedByUser
 
-
     @staticmethod
     def show():
         return MAIN_MENU
