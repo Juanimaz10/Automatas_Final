@@ -9,4 +9,5 @@ class Option4:
     @staticmethod
     def AddMusicInNewRowInExcel():
         csvFile = CsvFile()
-        print(csvFile.addMusicToCsvFile())
+        resultado = csvFile.addMusicToCsvFile()
+        print(resultado)

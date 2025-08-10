@@ -7,8 +7,7 @@ MAIN_MENU = """
 4) Add a new row
 5) List the 10 songs with the longest duration
 6) List the 10 artists with the most total plays
-7) Show the csv file
-8) [Exit]
+7) [Exit]
 ----------------------------------------------------------------------------------------"""
 
 USER_INPUT_OPTION_TO_MAIN_MENU = "Insert the option you want to execute: "

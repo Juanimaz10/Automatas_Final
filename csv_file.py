@@ -39,8 +39,11 @@ class CsvFile:
         result = result['Track']
         return result.to_string(index=False, header=True)
 
-    # --- Option 4 ---
+       # --- Option 4 ---
     def validate_input(self, field_name, input_value):
+        """
+        Función para validar la entrada del usuario según la expresión regular correspondiente.
+        """
         if field_name in REGULARS_VALIDATIONS:
             if re.match(REGULARS_VALIDATIONS[field_name], input_value):
                 return True
@@ -48,51 +51,75 @@ class CsvFile:
                 print(f"Entrada inválida para {field_name}.")
                 return False
         else:
+            # Si el campo no tiene validación específica, aceptarlo
             return True
 
     def addMusicToCsvFile(self):
-        new_row = []
-        fields = [',', 'Index', 'Artist', 'Url_spotify', 'Track', 'Album', 'Album_type', 'Uri', 'Danceability', 'Energy', 'Key', 'Loudness', 'Speechiness', 'Acousticness', 'Instrumentalness', 'Liveness', 'Valence', 'Tempo', 'Duration_ms', 'Url_youtube', 'Title', 'Channel', 'Views', 'Likes', 'Comments', 'Licensed', 'official_video', 'Stream']
-        used_fields = ['Artist', 'Url_spotify', 'Track', 'Album', 'Album_type', 'Uri', 'Duration_ms', 'Url_youtube', 'Title']
-        input_file_path = './Resources/Canciones nuevas.csv'
-        output_file_path = './Resources/Listado temas 2023.csv'
-        loadSongbyFile = int(input(ISLOADMUSICFORFILE))
-        if loadSongbyFile == 2:
+        """
+        Permite agregar nueva música al CSV, ya sea manualmente o desde un archivo.
+        """
+        fields = ['Index', 'Artist', 'Url_spotify', 'Track', 'Album', 'Album_type',
+                  'Uri', 'Danceability', 'Energy', 'Key', 'Loudness', 'Speechiness',
+                  'Acousticness', 'Instrumentalness', 'Liveness', 'Valence', 'Tempo',
+                  'Duration_ms', 'Url_youtube', 'Title', 'Channel', 'Views', 'Likes',
+                  'Comments', 'Licensed', 'official_video', 'Stream']
+
+        used_fields = ['Artist', 'Url_spotify', 'Track', 'Album', 'Album_type',
+                       'Uri', 'Duration_ms', 'Url_youtube', 'Title']
+
+        input_file_path = './resources/canciones_nuevas.csv'
+        output_file_path = './resources/listado_temas_2023.csv'
+
+        loadSongByFile = int(input(ISLOADMUSICFORFILE))  # 1 = archivo, 2 = manual
+
+        if loadSongByFile == 2:
+            # Carga manual
+            new_row = []
             for field in fields:
                 if field in used_fields:
                     while True:
                         user_input = input(f"Ingrese el valor para '{field}': ")
                         if field == "Duration_ms":
-                            user_input = float(user_input) * 60000
-                            user_input = str(user_input)
+                            try:
+                                user_input = float(user_input) * 60000
+                                user_input = str(int(user_input))
+                            except ValueError:
+                                print("Duración inválida. Ingrese un número.")
+                                continue
                         if self.validate_input(field, user_input):
                             new_row.append(user_input)
                             break
                 else:
                     new_row.append('')
-
-            with open('./resources/listado_temas_2023.csv', mode='a', newline='', encoding='utf-8') as file:
+            with open(output_file_path, mode='a', newline='', encoding='utf-8') as file:
                 writer = csv.writer(file)
                 writer.writerow(new_row)
             return SUCCESS_TO_ADD_ROW_IN_CSV_FILE
 
-        with open(input_file_path, 'r', newline='') as infile, open(output_file_path, 'a', newline='') as outfile:
-            reader = csv.DictReader(infile)
-            writer = csv.DictWriter(outfile, fieldnames=fields)
+        else:
+            # Carga desde archivo
+            with open(input_file_path, 'r', newline='', encoding='utf-8') as infile, \
+                 open(output_file_path, 'a', newline='', encoding='utf-8') as outfile:
 
-            for row in reader:
-                processed_row = {}
-                for field in fields:
-                    input_value = row.get(field, '') if field in used_fields else ''
-                    if field == "Duration_ms":
-                        input_value = float(input_value) * 60000
-                        input_value = str(input_value)
-                    if self.validate_input(field, input_value):
-                        processed_row[field] = input_value
-                    else:
-                        processed_row[field] = ''
-                writer.writerow(processed_row)
-        return SUCCESS_TO_ADD_ROW_IN_CSV_FILE
+                reader = csv.DictReader(infile)
+                writer = csv.DictWriter(outfile, fieldnames=fields)
+
+                for row in reader:
+                    processed_row = {}
+                    for field in fields:
+                        value = row.get(field, '') if field in used_fields else ''
+                        if field == "Duration_ms":
+                            try:
+                                value = float(value) * 60000
+                                value = str(int(value))
+                            except ValueError:
+                                value = ''
+                        if self.validate_input(field, value):
+                            processed_row[field] = value
+                        else:
+                            processed_row[field] = ''
+                    writer.writerow(processed_row)
+            return SUCCESS_TO_ADD_ROW_IN_CSV_FILE
 
     # --- Option 5 ---
     def lisTop10SongsByDuration(self, top10=10):
@@ -107,12 +134,6 @@ class CsvFile:
         top_10_artists_by_views = csv_file_sorted.drop_duplicates(subset=["Artist"]).head(10)[['Artist', 'Views']]
         return top_10_artists_by_views.to_string(index=False, header=True).replace('.0', '')
 
-    # --- Option 7 ---
-    @staticmethod
-    def show_csv_file():
-        csv_file = pd.read_csv('resources/listado_temas_2023.csv')
-        csv_string = csv_file.to_string(index=False, header=True)
-        return csv_string.replace('.0', '')
-
 
    
+
