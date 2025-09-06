@@ -37,3 +37,9 @@ REGULARS_VALIDATIONS = {
 SUCCESS_TO_ADD_ROW_IN_CSV_FILE = "Successfully added a new row to the CSV file."
 
 ISLOADMUSICFORFILE = " do you want to add songs manually? (1-no, 2-yes): "
+
+ERROR_TYPE_OPTION = "Error: The option must be a number between 1 and 7."
+
+USER_INPUT_OPTION_TO_MAIN_MENU = "Insert the value for: "
+
+INVALID_DURATION = "Invalid duration. Please enter a numeric value." 

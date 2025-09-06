@@ -1,7 +1,7 @@
 import re
 import pandas as pd
 from pandas import read_csv
-from constant import COLUMN_LIKES, COLUMN_COMMENTS, COLUMN_VIEWS, COLUMN_TRACK, SUCCESS_TO_ADD_ROW_IN_CSV_FILE, REGULARS_VALIDATIONS, ISLOADMUSICFORFILE
+from constant import COLUMN_LIKES, COLUMN_COMMENTS, COLUMN_VIEWS, COLUMN_TRACK, SUCCESS_TO_ADD_ROW_IN_CSV_FILE, REGULARS_VALIDATIONS, ISLOADMUSICFORFILE,USER_INPUT_OPTION_TO_MAIN_MENU, INVALID_DURATION
 import csv
 
 
@@ -41,9 +41,6 @@ class CsvFile:
 
        # --- Option 4 ---
     def validate_input(self, field_name, input_value):
-        """
-        Función para validar la entrada del usuario según la expresión regular correspondiente.
-        """
         if field_name in REGULARS_VALIDATIONS:
             if re.match(REGULARS_VALIDATIONS[field_name], input_value):
                 return True
@@ -51,13 +48,9 @@ class CsvFile:
                 print(f"Entrada inválida para {field_name}.")
                 return False
         else:
-            # Si el campo no tiene validación específica, aceptarlo
             return True
 
     def addMusicToCsvFile(self):
-        """
-        Permite agregar nueva música al CSV, ya sea manualmente o desde un archivo.
-        """
         fields = ['Index', 'Artist', 'Url_spotify', 'Track', 'Album', 'Album_type',
                   'Uri', 'Danceability', 'Energy', 'Key', 'Loudness', 'Speechiness',
                   'Acousticness', 'Instrumentalness', 'Liveness', 'Valence', 'Tempo',
@@ -70,21 +63,20 @@ class CsvFile:
         input_file_path = './resources/canciones_nuevas.csv'
         output_file_path = './resources/listado_temas_2023.csv'
 
-        loadSongByFile = int(input(ISLOADMUSICFORFILE))  # 1 = archivo, 2 = manual
+        loadSongByFile = int(input(ISLOADMUSICFORFILE))  
 
         if loadSongByFile == 2:
-            # Carga manual
             new_row = []
             for field in fields:
                 if field in used_fields:
                     while True:
-                        user_input = input(f"Ingrese el valor para '{field}': ")
+                        user_input = input(f"{USER_INPUT_OPTION_TO_MAIN_MENU} '{field}': ")
                         if field == "Duration_ms":
                             try:
                                 user_input = float(user_input) * 60000
                                 user_input = str(int(user_input))
                             except ValueError:
-                                print("Duración inválida. Ingrese un número.")
+                                print(INVALID_DURATION)
                                 continue
                         if self.validate_input(field, user_input):
                             new_row.append(user_input)
