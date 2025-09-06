@@ -39,10 +39,10 @@ class CsvFile:
         result = result['Track']
         return result.to_string(index=False, header=True)
 
-       # --- Option 4 ---
+    # --- Option 4 ---
     def validate_input(self, field_name, input_value):
         if field_name in REGULARS_VALIDATIONS:
-            if re.match(REGULARS_VALIDATIONS[field_name], input_value):
+            if re.fullmatch(REGULARS_VALIDATIONS[field_name], input_value):
                 return True
             else:
                 print(f'{INVALID_ENTRY}{field_name}')
@@ -59,58 +59,60 @@ class CsvFile:
 
         used_fields = ['Artist', 'Url_spotify', 'Track', 'Album', 'Album_type',
                        'Uri', 'Duration_ms', 'Url_youtube', 'Title']
-
-        input_file_path = './resources/canciones_nuevas.csv'
         output_file_path = './resources/listado_temas_2023.csv'
-
-        loadSongByFile = int(input(ISLOADMUSICFORFILE))  
+        
+        try:
+            loadSongByFile = int(input(ISLOADMUSICFORFILE))
+        except ValueError:
+            loadSongByFile = 1 
 
         if loadSongByFile == 2:
-            new_row = []
-            for field in fields:
-                if field in used_fields:
-                    while True:
-                        user_input = input(f"{USER_INPUT_OPTION_TO_MAIN_MENU} '{field}': ")
+            new_row_data = {}
+            for field in used_fields:
+                while True:
+                    user_input = input(f"{USER_INPUT_OPTION_TO_MAIN_MENU} '{field}': ")
+                    if self.validate_input(field, user_input):
                         if field == "Duration_ms":
                             try:
-                                user_input = float(user_input) * 60000
-                                user_input = str(int(user_input))
+                                final_value = str(int(float(user_input) * 60000))
                             except ValueError:
                                 print(INVALID_DURATION)
                                 continue
-                        if self.validate_input(field, user_input):
-                            new_row.append(user_input)
-                            break
-                else:
-                    new_row.append('')
+                        
+                        elif field == "Uri":
+                            if len(user_input) == 22 and not user_input.startswith('spotify:'):
+                                final_value = f'spotify:track:{user_input}'
+                            else:
+                                final_value = user_input
+                        
+                        else:
+                            final_value = user_input
+                        
+                        new_row_data[field] = final_value
+                        break 
+
+            final_row = [new_row_data.get(field, '') for field in fields]
+
             with open(output_file_path, mode='a', newline='', encoding='utf-8') as file:
                 writer = csv.writer(file)
-                writer.writerow(new_row)
+                writer.writerow(final_row)
+            
             return SUCCESS_TO_ADD_ROW_IN_CSV_FILE
 
         else:
+           
+            input_file_path = './resources/canciones_nuevas.csv'
             with open(input_file_path, 'r', newline='', encoding='utf-8') as infile, \
                  open(output_file_path, 'a', newline='', encoding='utf-8') as outfile:
 
                 reader = csv.DictReader(infile)
-                writer = csv.DictWriter(outfile, fieldnames=fields)
+                writer = csv.writer(outfile) 
 
                 for row in reader:
-                    processed_row = {}
-                    for field in fields:
-                        value = row.get(field, '') if field in used_fields else ''
-                        if field == "Duration_ms":
-                            try:
-                                value = float(value) * 60000
-                                value = str(int(value))
-                            except ValueError:
-                                value = ''
-                        if self.validate_input(field, value):
-                            processed_row[field] = value
-                        else:
-                            processed_row[field] = ''
+                    processed_row = [row.get(field, '') for field in fields]
                     writer.writerow(processed_row)
-            return SUCCESS_TO_ADD_ROW_IN_CSV_FILE
+            
+            return "Proceso de carga desde archivo completado."
 
     # --- Option 5 ---
     def lisTop10SongsByDuration(self, top10=10):
