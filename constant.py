@@ -43,3 +43,5 @@ ERROR_TYPE_OPTION = "Error: The option must be a number between 1 and 7."
 USER_INPUT_OPTION_TO_MAIN_MENU = "Insert the value for: "
 
 INVALID_DURATION = "Invalid duration. Please enter a numeric value." 
+
+INVALID_ENTRY = "Invalid entry for:"

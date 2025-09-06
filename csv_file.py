@@ -1,7 +1,7 @@
 import re
 import pandas as pd
 from pandas import read_csv
-from constant import COLUMN_LIKES, COLUMN_COMMENTS, COLUMN_VIEWS, COLUMN_TRACK, SUCCESS_TO_ADD_ROW_IN_CSV_FILE, REGULARS_VALIDATIONS, ISLOADMUSICFORFILE,USER_INPUT_OPTION_TO_MAIN_MENU, INVALID_DURATION
+from constant import COLUMN_LIKES, COLUMN_COMMENTS, COLUMN_VIEWS, COLUMN_TRACK, SUCCESS_TO_ADD_ROW_IN_CSV_FILE, REGULARS_VALIDATIONS, ISLOADMUSICFORFILE,USER_INPUT_OPTION_TO_MAIN_MENU, INVALID_DURATION, INVALID_ENTRY
 import csv
 
 
@@ -45,7 +45,7 @@ class CsvFile:
             if re.match(REGULARS_VALIDATIONS[field_name], input_value):
                 return True
             else:
-                print(f"Entrada inválida para {field_name}.")
+                print(f'{INVALID_ENTRY}{field_name}')
                 return False
         else:
             return True
@@ -89,7 +89,6 @@ class CsvFile:
             return SUCCESS_TO_ADD_ROW_IN_CSV_FILE
 
         else:
-            # Carga desde archivo
             with open(input_file_path, 'r', newline='', encoding='utf-8') as infile, \
                  open(output_file_path, 'a', newline='', encoding='utf-8') as outfile:
 
