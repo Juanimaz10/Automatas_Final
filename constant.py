@@ -23,12 +23,11 @@ SEARCH_SONG_BY_NAME = "Insert the name of the song: "
 
 REGULARS_VALIDATIONS = {
     'Artist': r'^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$',
-    'Title': r'^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$',
     'Track': r"^[\w\s.,'\"\-()&!?/áéíóúÁÉÍÓÚñÑ]+$",
     'Album': r"^[\w\s.,'\"\-()&!?/áéíóúÁÉÍÓÚñÑ]+$",
     'Url_spotify': r'^(https?:\/\/)?open\.spotify\.com(\/intl-[a-z]{2})?\/track\/[A-Za-z0-9]{22}(\?.*)?$',
     'Album_type': r'^(compilation|album|single)$',
-    'Uri': r'^(?:spotify:(?:track|album|artist|playlist|episode):)?[A-Za-z0-9]{22}$',
+    'Uri': r'^spotify:track:[A-Za-z0-9]{22}$',
     'Duration_ms': r'^\d+$',
     'Url_youtube': r'^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)[A-Za-z0-9_-]{11}$'
 }
@@ -45,3 +44,5 @@ USER_INPUT_OPTION_TO_MAIN_MENU = "Insert the value for: "
 INVALID_DURATION = "Invalid duration. Please enter a numeric value." 
 
 INVALID_ENTRY = "Invalid entry for:"
+
+FILE_LOAD_SUCCESS = "File load process completed."

@@ -1,7 +1,7 @@
 import re
 import pandas as pd
 from pandas import read_csv
-from constant import COLUMN_LIKES, COLUMN_COMMENTS, COLUMN_VIEWS, COLUMN_TRACK, SUCCESS_TO_ADD_ROW_IN_CSV_FILE, REGULARS_VALIDATIONS, ISLOADMUSICFORFILE,USER_INPUT_OPTION_TO_MAIN_MENU, INVALID_DURATION, INVALID_ENTRY
+from constant import *
 import csv
 
 
@@ -57,8 +57,8 @@ class CsvFile:
                   'Duration_ms', 'Url_youtube', 'Title', 'Channel', 'Views', 'Likes',
                   'Comments', 'Licensed', 'official_video', 'Stream']
 
-        used_fields = ['Artist', 'Url_spotify', 'Track', 'Album', 'Album_type',
-                       'Uri', 'Duration_ms', 'Url_youtube', 'Title']
+        used_fields = ['Artist', 'Url_spotify','Album', 'Album_type',
+                       'Uri', 'Duration_ms', 'Url_youtube','Track']
         output_file_path = './resources/listado_temas_2023.csv'
         
         try:
@@ -112,7 +112,7 @@ class CsvFile:
                     processed_row = [row.get(field, '') for field in fields]
                     writer.writerow(processed_row)
             
-            return "Proceso de carga desde archivo completado."
+            return FILE_LOAD_SUCCESS
 
     # --- Option 5 ---
     def lisTop10SongsByDuration(self, top10=10):
